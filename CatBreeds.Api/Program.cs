@@ -1,3 +1,6 @@
+using CatBreeds.Api.DbModels;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +10,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// adding db connection
+var connectionString = builder.Configuration.GetConnectionString("AppDbConnection");
+builder.Services.AddDbContext<CatDbContext>(x => x.UseSqlServer(connectionString));
+
 var app = builder.Build();
+
+
+// seed to database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    CatDbSeeder.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -16,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -23,3 +39,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
