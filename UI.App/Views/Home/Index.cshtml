@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Employments</h1>
+    <p>A list of all employments for the individual including name, employer start and end date. Learn about <a href="https://docs.microsoft.com/aspnet/core">other services provide by MPAO</a>.</p>
+</div>
+
+<form data-ajax="true" asp-controller="Home" asp-action="SearchByIdCard"
+      data-ajax-update="#resultArea" data-ajax-failure="handleError">
+    <div class="input-group mb-3">
+        <input type="text" name="idcard" class="form-control" placeholder="Search by ID Card Number" aria-label="Search by ID Card Number" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi bi-search"></i> Search</button>
+    </div>
+</form>
+
+<div id="resultArea">
+    @*@User.Claims.FirstOrDefault(t=> t.Type == System.Security.Claims.ClaimTypes.Thumbprint).Value*@
+</div>
+
+
+@section scripts {
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <script>
+
+        function handleError(xhr, status, error) {
+            if (xhr.responseText != "") {
+                var err = JSON.parse(xhr.responseText);
+                if (err.status == 440) {
+                    alert("Session expired");
+                }
+                else {
+                    alert(err.message);
+                }
+            }
+            else {
+                alert("Crash");
+            }
+        }
+    </script>
+}

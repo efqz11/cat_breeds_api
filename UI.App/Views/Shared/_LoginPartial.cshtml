@@ -1,0 +1,14 @@
+﻿
+
+<style>
+</style>
+
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between me-3">
+    <span>@User.Identity.Name</span>
+    <span class="ms-1 me-1 text-light">|</span>
+
+    <a href="#" onclick="$('#userLogOutFormX12').submit()"> <i class="bi bi-arrow-right-circle"></i> </a>
+</div>
+
+    <form class="hide" asp-action="LogOut" asp-controller="Account" id="userLogOutFormX12" style="display:none"></form>

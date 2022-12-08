@@ -1,0 +1,37 @@
+﻿@model List<ResponseEmployment>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if(ViewBag.ErrMessage != null)
+{
+    <span class="text-lead">@ViewBag.ErrMessage</span>
+}
+else
+{
+    <span class=" text-lead">@Model.Count record(s) found &mdash; <a href="#" onclick="fnExportCsv('employment-list', '#tblEmpl')"> Export to CSV</a> </span>
+    <table class="table mt-1" id="tblEmpl">
+    <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Employer Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.member_name</td>
+                <td>@item.employer_name</td>
+                    <td>@item.start_date.ToString("dd-MM-yyyy")</td>
+                    <td>@item.end_date.ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

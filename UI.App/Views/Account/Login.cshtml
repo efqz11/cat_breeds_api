@@ -1,0 +1,43 @@
+﻿@model LoginVm
+@{
+    ViewData["Title"] = "Home Page";
+    this.Layout = "_LayoutLogin";
+}
+
+<div class="login-box">
+
+    <div class="card col-md-6">
+        <article class="card-body">
+            <h4 class="card-title mb-4 mt-1">Sign in</h4>
+            <form asp-action="Login" method="POST">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="form-group">
+                    <label>Your email</label>
+                    <input asp-for=EmailAddress class="form-control" placeholder="Email address" type="email">
+                    <span asp-validation-for="EmailAddress" class="has-validation"></span>
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <label>Your password</label>
+                    <input class="form-control" asp-for=Password placeholder="******" type="password">
+                    <span asp-validation-for="Password" class="has-validation"></span>
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label> <input asp-for="RememberMe" type="checkbox"> Keep me logged in </label>
+                    </div> <!-- checkbox .// -->
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary justi"> Login  </button>
+                </div> <!-- form-group// -->
+                @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+            </form>
+        </article>
+    </div>
+
+
+</div>
+
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
